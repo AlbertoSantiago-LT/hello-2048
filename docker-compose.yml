@@ -3,6 +3,6 @@ services:
   hello2048:
     build: .
 #image es el nombre que le vamos a dar a la imagen el docker de debian lo saca del Dockerfile
-    image: httpd:hello2048
+    image: caddy:hello2048
     ports:
       - "80:80"

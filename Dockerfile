@@ -1,3 +1,3 @@
-FROM httpd:2.4-alpine
-COPY ./public_html/ /usr/local/apache2/htdocs/
+FROM caddy:alpine
+COPY ./public_html/ /usr/share/caddy/
 EXPOSE 80
