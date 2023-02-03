@@ -1,3 +1,3 @@
-FROM caddy:alpine
-COPY ./public_html/ /usr/share/caddy/
+FROM nginx:alpine-slim
+COPY ./public_html/ /usr/share/nginx/html
 EXPOSE 80
