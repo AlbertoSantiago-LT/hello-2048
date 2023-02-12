@@ -36,7 +36,7 @@ pipeline {
                 echo '\033[34mAMAZON\033[0m'
                 sshagent(['ssh-amazon']) {
                         sh '''
-                        ssh -o "StrictHostKeyChecking no" ec2-user@34.245.134.70 docker pull ghcr.io/albertosantiago-lt/hello-2048 && docker run -td --rm -p 80:80 ghcr.io/albertosantiago-lt/hello-2048
+                        ssh -o "StrictHostKeyChecking no" ec2-user@34.245.134.70 docker pull ghcr.io/albertosantiago-lt/hello-2048 | docker run -td --rm -p 80:80 ghcr.io/albertosantiago-lt/hello-2048
                         '''
                     }
                 }
