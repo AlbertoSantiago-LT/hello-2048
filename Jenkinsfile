@@ -9,7 +9,7 @@ pipeline {
         steps {
                 echo '\033[34mStage Build\033[0m'
                 sh '''docker-compose build
-                docker pull ghcr.io/albertosantiago-lt/hello-2048/hello2048:latest
+                docker pull ghcr.io/albertosantiago-lt/hello-2048/hello2048:v2
                 git tag 1.0.${BUILD_NUMBER} 
                 docker tag ghcr.io/albertosantiago-lt/hello-2048/hello2048:latest ghcr.io/albertosantiago-lt/hello-2048/hello-2048:1.0.${BUILD_NUMBER}
 
