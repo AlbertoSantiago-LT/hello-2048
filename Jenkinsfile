@@ -7,13 +7,14 @@ pipeline {
     stages {
         stage('Build') {
         steps {
-                echo 'Build'
+                echo '\033[34mStage Build\033[0m'
                 sh '''docker-compose build
                 docker pull ghcr.io/albertosantiago-lt/hello-2048/hello2048:latest
                 git tag 1.0.${BUILD_NUMBER} 
                 docker tag ghcr.io/albertosantiago-lt/hello-2048/hello2048:latest ghcr.io/albertosantiago-lt/hello-2048/hello-2048:1.0.${BUILD_NUMBER}
 
                 '''
+                echo '\033[34mSSH\033[0m'
                 sshagent(['ssh-github']) {
                     sh("git push git@github.com:AlbertoSantiago-LT/hello-2048.git --tags")
                 }
@@ -23,6 +24,7 @@ pipeline {
         stage('Logg') {
             steps {
                 withCredentials([string(credentialsId: 'github-token', variable: 'TOKEN_GIT')]) {
+                    echo '\033[34mlOG\033[0m'
                     sh 'echo $TOKEN_GIT | docker login ghcr.io -u AlbertoSantiago-LT --password-stdin'
                     sh 'docker push ghcr.io/albertosantiago-lt/hello-2048/hello-2048:1.0.${BUILD_NUMBER}'
                     }
@@ -31,7 +33,7 @@ pipeline {
             }
         stage('Prueba AWS') {
             steps {
-                echo 'ssh a ec2'
+                echo '\033[34mAMAZON\033[0m'
                 sshagent(['ssh-amazon']) {
                         sh '''
                         ssh -o "StrictHostKeyChecking no" ec2-user@34.245.134.70  
