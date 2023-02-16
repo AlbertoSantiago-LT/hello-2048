@@ -2,13 +2,13 @@
 - hosts: all
   gather_facts: false
   tasks:
-    - name: espera ssh
-      wait_for_connection:
-        delay: 10
-        sleep: 5
-        timeout: 300
-      vars:
-        ansible_user: ec2-user
+#    - name: espera ssh
+#      wait_for_connection:
+#        delay: 10
+#        sleep: 5
+#        timeout: 300
+#      vars:
+#        ansible_user: ec2-user
 
 - hosts: all
   vars:
