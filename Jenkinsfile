@@ -32,7 +32,7 @@ pipeline {
                     sh 'terraform init'
                     sh 'terraform fmt'
                     sh 'terraform validate'
-	                sh 'terraform apply -auto-approve'
+	            sh 'terraform apply -auto-approve'
                     ansiblePlaybook credentialsId: 'ssh-amazon', inventory:'./ansible/aws_ec2.yml',playbook:'./ansible/httpd.yml'
                 }
 	        }
