@@ -15,20 +15,10 @@
     ansible_user: ec2-user
   tasks:
     - name: Intalando Apache Https
-      yum:
-       name: httpd
-       state: latest
-       become: yes
-    - name: Enabled httpd
+      ansible.builtin.shell:
+       cmd: sudo amazon-linux-extras install docker
+    - name: Enabled doker
       service:
-        name: httpd
+        name: docker
         enabled: true
         state: started
-    - name: Install app
-      copy:
-        src: /home/sinensia/hello-2048
-        dest: /var/www/html/
-        owner: apache
-        group: apache
-        mode: "0644"
-        directory_mode: "0755"
