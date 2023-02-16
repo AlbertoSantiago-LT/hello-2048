@@ -27,8 +27,8 @@ resource "aws_instance" "app_server" {
     APP  = "vue2048"
     # Name = var.instance_name
   }
-#  provisioner "local-exec" {
-#    working_dir = "ansible"
-#    command     = "ansible-playbook -i aws_ec2.yml httpd.yml"
-#  }
+   provisioner "local-exec" {
+     working_dir = "ansible"
+     command     = "ansible-playbook -i aws_ec2.yml httpd.yml"
+   }
 }
