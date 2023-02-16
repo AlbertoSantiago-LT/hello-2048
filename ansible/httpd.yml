@@ -14,7 +14,7 @@
   vars:
     ansible_user: ec2-user
   tasks:
-    - name: Intalando Apache Https
+    - name: Intalando Docker
       become: true
       shell: "amazon-linux-extras install docker -y"
 
