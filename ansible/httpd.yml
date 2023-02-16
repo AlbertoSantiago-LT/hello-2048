@@ -15,10 +15,12 @@
     ansible_user: ec2-user
   tasks:
     - name: Intalando Apache Https
-      ansible.builtin.shell:
-       cmd: sudo amazon-linux-extras install docker
+      become: true
+      shell: "amazon-linux-extras install docker -y"
+
     - name: Enabled doker
+      become: true
       service:
         name: docker
-        enabled: true
         state: started
+        enabled: yes
