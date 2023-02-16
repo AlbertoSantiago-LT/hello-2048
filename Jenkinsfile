@@ -23,10 +23,9 @@ pipeline {
 		withCredentials([string(credentialsId: 'github-token', variable: 'GIT_TOKEN')]){
 		    sh 'echo $GIT_TOKEN | docker login ghcr.io -u albertosantiago-lt --password-stdin'
                     sh 'docker push ghcr.io/albertosantiago-lt/hello-2048/hello2048:1.0.${BUILD_NUMBER}'
-		}
+		        }
             }
         }  
-
         stage('Terraform') {
             steps{
                 withAWS(credentials: 'Credentials_aws', region: 'eu-west-1') {
@@ -36,7 +35,7 @@ pipeline {
 	            sh 'terraform apply -auto-approve'
                     ansiblePlaybook credentialsId: 'ssh-amazon', inventory:'./ansible/aws_ec2.yml',playbook:'./ansible/httpd.yml'
                 }
-	    }
+	        }
         }
     }
 }
