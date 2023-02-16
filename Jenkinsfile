@@ -14,7 +14,9 @@ pipeline {
                         sh 'terraform fmt'
                         sh 'terraform validate'
 	                sh 'terraform apply -auto-approve'
+			sh 'ls'
                         ansiblePlaybook credentialsId: 'ssh-amazon', inventory: ./ansible/aws_ec2.yml , playbook: ./ansible/httpd.yml
+			sh 'ls'
                     }
                 }
 	    }
