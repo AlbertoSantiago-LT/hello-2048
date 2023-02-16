@@ -5,7 +5,6 @@ pipeline {
         ansiColor('xterm')
     }
     stages{
-
        stage('Terraform') {
            steps{
                sshagent(['ssh-amazon']) {
@@ -15,10 +14,7 @@ pipeline {
                         sh 'terraform fmt'
                         sh 'terraform validate'
 	                sh 'terraform apply -auto-approve'
-                        AnsiblePlaybook(
-                            credentialsId: 'Credentials_aws', 
-                            inventory: './ansible/aws_ec2.yml', 
-                            playbook: './ansible/httpd.yml'
+                        ansiblePlaybook credentialsId: 'ssh-amazon',inventory: './ansible/aws_ec2.yml', playbook: './ansible/httpd.yml'
                         )                    
                     }
                 }
