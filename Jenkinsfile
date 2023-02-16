@@ -18,7 +18,7 @@ pipeline {
 	    }	                              
         }  
         
-    stage('PUSING DOCKER IMAGE TO GHCR.IO'){
+        stage('PUSING DOCKER IMAGE TO GHCR.IO'){
             steps{ 
 		withCredentials([string(credentialsId: 'github-token', variable: 'GIT_TOKEN')]){
 		    sh 'echo $GIT_TOKEN | docker login ghcr.io -u albertosantiago-lt --password-stdin'
@@ -27,15 +27,15 @@ pipeline {
             }
         }  
 
-    stage('Terraform') {
-        steps{
-            sshagent(['ssh-amazon']) {
-                withAWS(credentials: 'Credentials_aws', region: 'eu-west-1') {
-                    sh 'terraform init'
-                    sh 'terraform fmt'
-                    sh 'terraform validate'
-	            sh 'terraform apply -auto-approve'
-		    ansiblePlaybook credentialsId: 'ssh-amazon', inventory:'./ansible/aws_ec2.yml',playbook:'./ansible/httpd.yml'
+        stage('Terraform') {
+            steps{
+                sshagent(['ssh-amazon']) {
+                    withAWS(credentials: 'Credentials_aws', region: 'eu-west-1') {
+                        sh 'terraform init'
+                        sh 'terraform fmt'
+                        sh 'terraform validate'
+	                sh 'terraform apply -auto-approve'
+		        ansiblePlaybook credentialsId: 'ssh-amazon', inventory:'./ansible/aws_ec2.yml',playbook:'./ansible/httpd.yml'
                     }
                 }
 	    }
