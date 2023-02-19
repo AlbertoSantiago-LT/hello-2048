@@ -45,8 +45,9 @@ pipeline {
         }
         stage('Terraform Playbook') {
             steps{
-                withAWS(credentials: 'Credentials_aws', region: 'eu-west-1') {
-                    ansiblePlaybook credentialsId: 'ssh-amazon', inventory: './ansible/aws_ec2.yml', playbook: './ansible/httpd.yml'
+                sshagent(['ssh-amazon']) {
+                    withAWS(credentials: 'Credentials_aws', region: 'eu-west-1') {
+                        ansiblePlaybook credentialsId: 'ssh-amazon', inventory: './ansible/aws_ec2.yml', playbook: './ansible/httpd.yml'
                     }
 	            }
             }
