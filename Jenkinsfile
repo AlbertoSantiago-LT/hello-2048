@@ -26,13 +26,26 @@ pipeline {
 		        }
             }
         }  
-        stage('Terraform') {
+        stage('Terraform Init') {
             steps{
                 withAWS(credentials: 'Credentials_aws', region: 'eu-west-1') {
                     sh 'terraform init'
                     sh 'terraform fmt'
                     sh 'terraform validate'
-    	            sh 'terraform apply -auto-approve'
+                }
+	        }
+        }
+
+        stage('Terraform Apply') {
+            steps{
+                withAWS(credentials: 'Credentials_aws', region: 'eu-west-1') {
+	            sh 'terraform apply -auto-approve'
+                }
+	        }
+        }
+        stage('Terraform Playbook') {
+            steps{
+                withAWS(credentials: 'Credentials_aws') {
                     ansiblePlaybook credentialsId: 'ssh-amazon', inventory:'./ansible/aws_ec2.yml',playbook:'./ansible/httpd.yml'
                 }
 	        }
